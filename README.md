@@ -4,16 +4,21 @@ A fast and reliable Python tool for splitting large text files into smaller, mor
 EXAMPLES:
 
 Split a large log file into 10MB chunks:
-  python file_splitter.py server.log 10MB
+
+    python file_splitter.py server.log 10MB
   
 Split a data file into 1024KB parts in a specific directory:
-  python file_splitter.py data.txt 1024KB -o ./output/
+
+    python file_splitter.py data.txt 1024KB -o ./output/
 
 Force overwrite existing files without confirmation:
-  python file_splitter.py large.txt 5M --force
+
+    python file_splitter.py large.txt 5M --force
     
 Run quietly with minimal output:
-  python file_splitter.py document.txt 2MB --quiet
+
+    python file_splitter.py document.txt 2MB --quiet
 
 Split text file preserving line boundaries:
-  python file_splitter.py text.txt 1MB --line-aware
+
+    python file_splitter.py text.txt 1MB --line-aware
