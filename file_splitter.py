@@ -59,9 +59,9 @@ class CleanupFailedError(SplitterError):
 
 class LineEnding(Enum):
     """Represents different types of line endings."""
-    LF = "LF"       # Unix-style (\\n)
-    CR = "CR"       # Classic Mac-style (\\r)
-    CRLF = "CRLF"   # Windows-style (\\r\\n)
+    LF = "LF"       # Unix-style (\n)
+    CR = "CR"       # Classic Mac-style (\r)
+    CRLF = "CRLF"   # Windows-style (\r\n)
     
     def as_bytes(self) -> bytes:
         """Returns the byte representation of this line ending."""
@@ -721,72 +721,11 @@ class FileSplitter:
 # Main Entry Point
 # ============================================================================
 
-def print_help():
-    """Prints help information for the file splitter."""
-    help_text = """
-=====================================================================
-                        File Splitter v0.1.0                              
-                                                                          
-Split large text files into smaller files with specified maximum size
-======================================================================
-
-USAGE:
-  python file_splitter.py <input_file> <max_size> [OPTIONS]
-
-REQUIRED ARGUMENTS:
-  input_file          Path to the input file to split
-  max_size            Maximum size for each output file (e.g., 10MB, 1024KB, 512B)
-
-OPTIONAL ARGUMENTS:
-  -o, --output-dir    Output directory for split files (default: same as input)
-  -f, --force         Overwrite existing files without confirmation
-  -q, --quiet         Suppress progress output and run silently
-  -l, --line-aware    Split at line boundaries to preserve line integrity
-  -h, --help          Show this help message
-
-SIZE FORMATS:
-  1MB, 512MB          Megabytes (1024 × 1024 bytes)
-  1M, 512M            Megabytes (shorthand)
-  1KB, 512KB          Kilobytes (1024 bytes)
-  1K, 512K            Kilobytes (shorthand)
-  1024B, 1024         Bytes (explicit or numeric)
-
-EXAMPLES:
-  Basic splitting:
-    python file_splitter.py server.log 10MB
-
-  Split with custom output directory:
-    python file_splitter.py data.txt 1024KB -o ./output/
-
-  Force overwrite existing files:
-    python file_splitter.py large.txt 5M --force
-
-  Run quietly with line-aware mode:
-    python file_splitter.py text.txt 1MB --line-aware -q
-
-  Combine all options:
-    python file_splitter.py document.txt 2MB -o ./chunks -f -l
-
-NOTES:
-  • Line-aware mode preserves complete lines and requires minimum size of 1024 bytes
-  • Use --force to skip confirmation when output files already exist
-  • Use --quiet to suppress all output messages
-  • Exit codes: 0 (success), 1 (error)
-"""
-    print(help_text)
-
-
 def main():
     """Main entry point for the file splitter."""
-    # Check if no arguments provided
-    if len(sys.argv) == 1:
-        print_help()
-        sys.exit(0)
-    
     parser = argparse.ArgumentParser(
         description="Split large text files into smaller files with specified maximum size",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        add_help=True,
         epilog="""
 EXAMPLES:
   Split a large log file into 10MB chunks:
@@ -813,13 +752,7 @@ EXAMPLES:
     parser.add_argument("-q", "--quiet", action="store_true", help="Suppress progress output and run silently")
     parser.add_argument("-l", "--line-aware", action="store_true", help="Split at line boundaries to preserve line integrity")
     
-    try:
-        args = parser.parse_args()
-    except SystemExit as e:
-        # Catch argument parsing errors and show help
-        if e.code != 0:
-            print("\nUse '-h' or '--help' for more information.", file=sys.stderr)
-        sys.exit(e.code)
+    args = parser.parse_args()
     
     try:
         # Parse maximum size
