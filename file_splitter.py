@@ -724,11 +724,11 @@ class FileSplitter:
 def print_help():
     """Prints help information for the file splitter."""
     help_text = """
-╔════════════════════════════════════════════════════════════════════════════╗
-║                        File Splitter v0.1.0                               ║
-║                                                                            ║
-║  Split large text files into smaller files with specified maximum size    ║
-╚════════════════════════════════════════════════════════════════════════════╝
+=====================================================================
+                        File Splitter v0.1.0                              
+                                                                          
+Split large text files into smaller files with specified maximum size
+======================================================================
 
 USAGE:
   python file_splitter.py <input_file> <max_size> [OPTIONS]
